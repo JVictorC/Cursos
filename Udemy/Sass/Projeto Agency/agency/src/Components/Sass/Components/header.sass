@@ -1,0 +1,55 @@
+
+#main-banner
+  height: 85vh
+  background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)), url("../img/office.jpg")
+  background-size: cover
+  background-position: center
+
+  .nav-container
+    background: $black
+    display: flex
+    width: 100%
+    justify-content: space-between
+    position: fixed
+    padding: 1.5rem 2rem
+    top: 0
+    left: 0
+    z-index: 10
+
+    .brand
+      color: $light-color
+      font-size: 2rem
+      @include main-hover
+
+    &-navbar
+      display: flex
+      align-items: center
+      height: 100%
+
+      li
+        margin: 5px 10px
+
+      a
+        @include main-hover
+        color: $light-color
+
+    .fa-bars
+      color: $light-color
+      font-size: 2rem
+      display: none
+
+  .title-container
+    color: $light-color
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    height: 100%
+
+    h2
+      font-size: 3rem
+      @extend %title-shadow
+    h1
+      font-size: 4rem
+      margin-top: 1rem
+      @extend %title-shadow
