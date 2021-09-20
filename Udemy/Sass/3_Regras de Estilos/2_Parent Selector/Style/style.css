@@ -1,0 +1,29 @@
+a {
+  text-decoration: none;
+  color: green;
+  transition: 0.5s;
+  padding: 10px;
+  border: 1px solid green;
+  display: block;
+  width: 150px;
+  text-align: center;
+}
+a:hover {
+  background: green;
+  color: white;
+}
+
+.container {
+  background: #ccc;
+  padding: 20px;
+  margin: 20px;
+}
+.container-content {
+  color: red;
+}
+
+.spacing {
+  padding: 200px;
+}
+
+/*# sourceMappingURL=style.css.map */

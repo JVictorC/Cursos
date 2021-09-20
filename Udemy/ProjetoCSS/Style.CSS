@@ -1,0 +1,25 @@
+
+body{
+    background: #d2d2c1 url(Images/fundo.png);
+    font: 16px Arial, Helvetica, sans-serif 
+}
+
+#Principal{
+    width: 900PX;
+    margin: auto;
+
+}
+#Menu{
+    background: #c5c5b2;
+    padding: 15px;
+    text-align: center;
+    
+}
+A{
+    text-decoration: NONE;
+    color: #4B566A;
+    font-weight: bold;
+    padding: 5PX;
+    margin: 10PX;
+
+}

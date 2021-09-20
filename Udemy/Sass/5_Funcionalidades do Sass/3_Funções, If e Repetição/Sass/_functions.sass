@@ -1,0 +1,23 @@
+@function text-color($size)
+  $color: #000
+  @if $size > 10
+    $color: red
+  @else 
+    $color: blue
+
+  @return $color
+
+
+@function custom-border-function($variant: 1)
+  $border: none
+
+  @if $variant > 3
+    @warn  'Insira variações até o número 3'
+
+  @if $variant == 1
+    $border: 1px solid red
+  @else if $variant == 2
+    $border: 2px solid green
+  @else 
+    $border: 3px dotted gold
+  @return $border

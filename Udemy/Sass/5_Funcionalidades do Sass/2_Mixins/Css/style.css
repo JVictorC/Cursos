@@ -1,0 +1,56 @@
+.btn {
+  background: #ddd;
+  color: #000;
+  padding: 12px 10px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+body {
+  margin: 25px;
+}
+
+.p-esp {
+  color: red;
+  background: yellow;
+  padding: 10px;
+  border: 1px solid red;
+  cursor: pointer;
+  border: 1px solid red;
+}
+.p-esp:hover {
+  border-color: blue;
+  color: green;
+}
+
+h2 {
+  color: red;
+  background: yellow;
+  padding: 10px;
+  border: 1px solid red;
+  cursor: pointer;
+}
+h2:hover {
+  border-color: blue;
+  color: green;
+}
+
+.esp-menor {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid red;
+}
+
+.esp-medio {
+  margin: 15px;
+  padding: 15px;
+  border: 1px solid blue;
+}
+
+.esp-maior {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid green;
+}
+
+/*# sourceMappingURL=style.css.map */

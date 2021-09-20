@@ -1,0 +1,22 @@
+@import variables
+@import button
+@import mixins
+
+body
+  margin: 25px
+
+.p-esp
+  @include special
+  @include custom-border(solid, red)
+
+h2
+  @include special
+
+.esp-menor
+  @include espacamento(10px,10px, red)
+
+.esp-medio
+  @include espacamento(15px,15px, blue)
+
+.esp-maior
+  @include espacamento(20px,20px, green)

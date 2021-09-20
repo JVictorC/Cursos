@@ -1,0 +1,47 @@
+@charset 'UTF-8'
+
+@import variables
+@import button
+@import mixins
+@import functions
+
+body
+  margin: 25px
+
+.p-esp
+  @include special
+  @include custom-border(solid, red)
+
+h2
+  @include special
+
+.esp-menor
+  @include espacamento(10px,10px, red)
+
+.esp-medio
+  @include espacamento(15px,15px, blue)
+
+.esp-maior
+  // @include espacamento(20px,20px, green)
+  border: custom-border-function(5)
+
+.font-pequena
+  font-size: 5px
+  color: text-color(5)
+
+$fonts: 40px, 60px, 100px
+
+@each $font in $fonts
+  .title-#{$font}
+    font-size: $font
+    line-height: $font * 1.2
+
+@for $i from 1 through 3
+  .p-#{$i}
+    @if $i == 1
+      color: lightblue
+    @else if $i == 2
+      color: lightgreen
+    @else 
+      color: teal
+    background: black
