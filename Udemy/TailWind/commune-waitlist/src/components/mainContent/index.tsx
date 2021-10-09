@@ -29,7 +29,7 @@ export default function MainContent() {
           <button type="button" className="btn btn-primary md:ml-5">Join Waitlist</button>
         </form>
         </article>
-        <img src={Illustration} alt="ilustração de cores" className="hidden lg:block lg:w-3/5 h-96" />
+        <img src={Illustration} alt="ilustração de cores" className="hidden lg:block lg:w-4/12 h-1/12" />
       </section>
     </main>
   );
