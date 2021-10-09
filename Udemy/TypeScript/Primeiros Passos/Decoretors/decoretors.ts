@@ -1,15 +1,16 @@
-@logarClass
+// @logarClass
+@logarClasseSe(true)
 
-class Eletrodomestico {
-  constructor() {
-    console.log('novo ...');
-  }
-}
+// class Eletrodomestico {
+//   constructor() {
+//     console.log('novo ...');
+//   }
+// }
 
 function logarClass (construtor: Function) {
   console.log(construtor);
 }
 
-new Eletrodomestico()
-new Eletrodomestico()
-new Eletrodomestico()
+function logarClasseSe (valor: boolean) {
+  return valor ? logarClass : null
+}
