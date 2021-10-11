@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="items-center m-auto flex w-full lg:w-4/5 lg:justify-around lg:items-center lg:flex-row flex-col ">
 
       <nav className="lg:w-1/2 mr-auto w-full items-cente mb-10">
-        <ul className="flex lg:justify-between justify-center">
+        <ul className="flex lg:justify-between justify-center pt-20">
           {redesSocias.map((rede) => (
             <li key={rede} className="mx-3 lg:mx-0 text-lg">{rede}</li>
           ))}
