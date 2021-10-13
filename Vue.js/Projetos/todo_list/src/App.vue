@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Todo List</h1>
     <Form :handleNewTodoList="handleNewTodoList" />
-    <TodoList :arrayTodoList="arrayTodoList" />
+    <TodoList :arrayTodoList="arrayTodoList" :handleDeleteToDo="handleDeleteToDo"/>
   </div>
 </template>
 
@@ -26,6 +26,9 @@ export default {
       const newArray = [...this.arrayTodoList, newTodo];
       this.arrayTodoList = newArray;
     },
+    handleDeleteToDo(newArray) {
+      this.arrayTodoList = newArray
+    }
   },
 };
 </script>
@@ -35,6 +38,5 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

@@ -9,7 +9,8 @@ export default {
   name: 'Form',
   data() {
     return {
-      toDo: ''
+      toDo: '',
+      index: 0,
     }
   },
   props: {
@@ -18,8 +19,9 @@ export default {
   methods: {
     handleClick(e) {
       e.preventDefault()
-      this.handleNewTodoList(this.toDo)
+      this.handleNewTodoList({index: this.index, toDo: this.toDo})
       this.toDo = ''
+      this.index++
     }
   }
 }
