@@ -1,7 +1,7 @@
 <template>
-  <nav>
+  <nav class="h-auto flex flex-col items-center">
     <h1>Categorias</h1>
-    <ul>
+    <ul >
       <li v-for="item in listCategories" :key="item.id">
         <label :for="item.id">
           <input

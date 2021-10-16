@@ -8,6 +8,7 @@ export default createStore({
     results: [],
     hasSearch: false,
     isLoading: false,
+    card: [],
   },
   mutations: {
     saveNameIten(state, payload) {
@@ -19,6 +20,9 @@ export default createStore({
     chageState(state, payload) {
       state.isLoading = payload
       state.hasSearch = !payload
+    },
+    AddProducTCart(state, payload) {
+      state.card = [...state.card, payload]
     }
   },
   actions: {
@@ -32,7 +36,6 @@ export default createStore({
     async getItensByCategory(context, payload) {
       context.commit('chageState', true)
       const { results } = await fetchItensByCategory(payload)
-      context.commit('saveNameIten', payload)
       context.commit('saveItensFetch', results)
       context.commit('chageState', false)
     }
