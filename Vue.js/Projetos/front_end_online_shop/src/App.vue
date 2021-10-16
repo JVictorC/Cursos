@@ -1,35 +1,30 @@
 <template>
-  <div class="flex flex-col">
-    <SearchBar />
-    <div class="grid grid-cols-3 mt-40">
-      <CategoriesList />
-      <h2 v-if="$store.state.isLoading" class="text-center m-10 text-2xl col-span-2">
-        Carregando ...
-      </h2>
-      <MainListItens v-if="$store.state.hasSearch" />
-    </div>
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/cart">Cart</router-link>
   </div>
+  <router-view/>
 </template>
 
-<script>
-import SearchBar from "./components/SearchBar";
-import CategoriesList from "./components/CategoriesList";
-import MainListItens from "./components/MainListItens";
-
-export default {
-  name: "App",
-  components: {
-    SearchBar,
-    CategoriesList,
-    MainListItens,
-  },
-};
-</script>
-
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>

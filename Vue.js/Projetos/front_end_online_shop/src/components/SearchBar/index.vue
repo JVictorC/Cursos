@@ -1,5 +1,5 @@
 <template>
-  <header class="flex w-full items-center mb-10 fixed bg-white py-10 z-50">
+  <header class="flex w-full items-center top-0 fixed bg-white pb-10 z-50">
     <form @submit.prevent.stop="handleSubmitForm" class="flex justify-center w-4/5">
       <input
         type="text"
@@ -15,10 +15,10 @@
         Pesquisar
       </button>
     </form>
-    <article class="flex items-center justify-around w-2/12">
+    <router-link to="/cart" class="flex items-center justify-around w-2/12">
     <img src="./../../assets/Images/cart.png" alt="images cart" class="w-20 h-20">
     <p class="text-3xl">{{ $store.state.card.length }}</p>
-    </article>
+    </router-link>
   </header>
 </template>
 

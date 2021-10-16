@@ -23,6 +23,9 @@ export default createStore({
     },
     AddProducTCart(state, payload) {
       state.card = [...state.card, payload]
+    },
+    deleteItemCard(state, payload) {
+      state.card = payload
     }
   },
   actions: {
