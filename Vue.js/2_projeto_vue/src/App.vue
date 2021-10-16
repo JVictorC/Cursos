@@ -19,3 +19,10 @@ import Pessoa from './components/Pessoa.vue'
     },
   }
 </script>
+
+<style>
+  body{
+    background-color: #333;
+    color: #fff;
+  }
+</style>

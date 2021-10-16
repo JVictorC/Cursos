@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <SearchBar />
     <CategoriesList />
     <MainListItens v-if="$store.state.hasSearch"/>
