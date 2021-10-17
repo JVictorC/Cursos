@@ -47,7 +47,7 @@ export default {
     },
     handleClickLogar() {
       this.$store.commit('saveUser', this.myEmail)
-      this.$router.push('/comidas')
+      this.$router.push('/home')
     },
   },
 };

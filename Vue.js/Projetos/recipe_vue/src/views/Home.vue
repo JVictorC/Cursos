@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+      <router-view />
     <Footer />
   </div>
 </template>
@@ -11,6 +12,11 @@ export default {
   name: 'Home',
   components: {
     Footer,
+  },
+  data() {
+    return {
+      path: this.$route.href
+    }
   }
 }
 </script>
