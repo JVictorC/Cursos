@@ -18,14 +18,29 @@ const routes = [
         component: () => import('../views/Comidas.vue')
       },
       {
+        path: '/comidas/:id',
+        name: 'ComidasDetails',
+        component: () => import('../views/DetailsItem.vue')
+      },
+      {
         path: '/bebidas',
         name: 'Bebidas',
-        component: () => import('../views/Explorar.vue')
+        component: () => import('../views/Bebidas.vue')
+      },
+      {
+        path: '/bebidas/:id',
+        name: 'BebidasDetails',
+        component: () => import('../views/DetailsItem.vue')
       },
       {
         path: '/explorar',
         name: 'Explorar',
-        component: () => import('../views/Bebidas.vue')
+        component: () => import('../views/Explorar.vue')
+      },
+      {
+        path: "/:pathMatch(.*)*",
+        name: 'NotFound',
+        component: () => import('../views/NotFound.vue')
       },
     ]
   },

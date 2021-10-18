@@ -1,8 +1,8 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCompass, faWineGlass, faHamburger } from "@fortawesome/free-solid-svg-icons";
+import { faCompass, faWineGlass, faHamburger, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faCompass, faWineGlass, faHamburger);
+library.add(faCompass, faWineGlass, faHamburger,faSyncAlt);
 
 
 import { createApp } from 'vue'
