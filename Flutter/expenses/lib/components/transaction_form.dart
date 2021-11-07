@@ -41,7 +41,6 @@ class _TransactionFormState extends State<TransactionForm> {
         });
       }
     });
-    print(DateTime.now());
   }
 
   @override
