@@ -1,6 +1,8 @@
 import 'package:expenses/components/chart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'dart:io';
 import 'components/transaction_form.dart';
 import 'components/transaction_list.dart';
 import 'models/transaction.dart';
@@ -14,26 +16,26 @@ class ExpensesApp extends StatelessWidget {
     return MaterialApp(
       home: MyHomePage(),
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        accentColor: Colors.amber,
-        fontFamily: 'Quicksand',
-        textTheme: ThemeData.light().textTheme.copyWith(
-              headline6: TextStyle(
-                fontFamily: 'OpenSans',
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-        appBarTheme: AppBarTheme(
+          primarySwatch: Colors.purple,
+          accentColor: Colors.amber,
+          fontFamily: 'Quicksand',
           textTheme: ThemeData.light().textTheme.copyWith(
                 headline6: TextStyle(
                   fontFamily: 'OpenSans',
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-        ),
-      ),
+          appBarTheme: AppBarTheme(
+            textTheme: ThemeData.light().textTheme.copyWith(
+                  headline6: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+          ),
+          errorColor: Colors.red),
     );
   }
 }
@@ -45,20 +47,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
-    Transaction(id: '0', title: 'title', value: 0.0, date: DateTime.now()),
+    Transaction(id: '0', title: 'title', value: 0, date: DateTime.now())
   ];
+
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _transactions
@@ -102,45 +94,91 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    bool _isLandsCape = mediaQuery.orientation == Orientation.landscape;
+
     final appBar = AppBar(
       title: Text(
         'Despesas Pessoais',
-        style: TextStyle(fontSize: 20 * MediaQuery.of(context).textScaleFactor),
+        style: TextStyle(fontSize: 20 * mediaQuery.textScaleFactor),
       ),
       actions: [
+        if (_isLandsCape)
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _showChart = !_showChart;
+              });
+            },
+            icon: Icon(_showChart ? Icons.list : Icons.show_chart),
+          ),
         IconButton(
           onPressed: () => _openTransactionFormModal(context),
           icon: Icon(Icons.add),
         )
       ],
     );
-    final availabelHeight = MediaQuery.of(context).size.height -
-        appBar.preferredSize.height -
-        MediaQuery.of(context).padding.top;
 
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+    final availabelHeight = mediaQuery.size.height -
+        appBar.preferredSize.height -
+        mediaQuery.padding.top;
+
+    final bodyPage = SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (_showChart || !_isLandsCape)
             Container(
-              height: availabelHeight * 0.3,
+              height: availabelHeight * (_isLandsCape ? 0.7 : 0.3),
               child: Chart(recentTransaction: _recentTransactions),
             ),
+          if (!_showChart || !_isLandsCape)
             Container(
-              height: availabelHeight * 0.7,
+              height: availabelHeight * (_isLandsCape ? 1 : 0.7),
               child: TransactionList(_transactions, _removeTransaction),
             ),
-          ],
-        ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => _openTransactionFormModal(context),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            navigationBar: CupertinoNavigationBar(
+              middle: Text('Despesas Pessoais'),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (_isLandsCape)
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _showChart = !_showChart;
+                        });
+                      },
+                      icon: Icon(_showChart ? Icons.list : Icons.show_chart),
+                    ),
+                  IconButton(
+                    onPressed: () => _openTransactionFormModal(context),
+                    icon: Icon(Icons.add),
+                  )
+                ],
+              ),
+            ),
+            child: bodyPage,
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: bodyPage,
+            floatingActionButton: Platform.isIOS
+                ? Container()
+                : FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () => _openTransactionFormModal(context),
+                  ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+          );
   }
 }

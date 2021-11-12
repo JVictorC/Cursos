@@ -1,110 +1,60 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import './Components/SearchBar.dart';
-import 'Services/getItens.dart';
-import 'Components/ListProduct.dart';
-import 'Components/Cart.dart';
 
-main() {
-  runApp(ShopingCart());
-}
+main() => runApp(const ShoppingCart());
 
-class ShopingCart extends StatelessWidget {
+class ShoppingCart extends StatelessWidget {
+  const ShoppingCart({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Shopping Cart',
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  List _itensList = [];
-
-  String _itemDeProcura = '';
-
-  List _itensCarrinho = [];
-
-  _pesquisar(String value) async {
-    setState(() {
-      _itemDeProcura = value;
-    });
-    List array = await getArrayListItemByName(value);
-    setState(() {
-      _itensList = array;
-    });
-  }
-
-  _mostrarModalCart(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (_) {
-        return Container(
-          child: CartItens(
-            itensCarrinho: _itensCarrinho,
-            onDelete: _removeItemCArrinho,
+      theme: ThemeData.light().copyWith(
+          colorScheme: const ColorScheme.light().copyWith(
+            primary: Colors.yellow[700],
+            secondary: Colors.black,
           ),
-        );
-      },
+          textTheme: const TextTheme(
+              headline1: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.black))),
+      home: const MyHomePage(),
     );
   }
+}
 
-  _addItemNoCarrinho(Map newValue) {
-    setState(() {
-      _itensCarrinho.add(newValue);
-    });
-  }
-
-  _removeItemCArrinho(String idParaRemover) {
-    final arrayFilter = _itensCarrinho.where((element) => element['id'] != idParaRemover);
-    setState(() {
-      _itensCarrinho = arrayFilter.toList();
-    });
-  }
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shopping Cart'),
-        actions: [
-          IconButton(
-            onPressed: () => _mostrarModalCart(context),
-            icon: Icon(Icons.shopping_cart_outlined),
-          )
+        title: const Text('Shopping Cart'),
+        actions: const [
+          Icon(Icons.shopping_cart)
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SearchBar(onSubmit: _pesquisar),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  'Termo Procurado: $_itemDeProcura',
-                  style: TextStyle(fontSize: 20),
-                ),
+      body: Container(
+        margin: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Bem Vindo a Versão Playground do Mercado Livre',
+              style: Theme.of(context).textTheme.headline1,
+              textAlign: TextAlign.center,
+            ),
+            Container(
+              height: 300,
+              width: 300,
+              child: Image.asset(
+                "assets/images/welcome.png",
+                fit: BoxFit.cover,
               ),
-              ListProducts(
-                products: _itensList,
-                onAddItem: _addItemNoCarrinho,
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _mostrarModalCart(context),
-        child: Icon(Icons.shopping_cart_outlined),
       ),
     );
   }

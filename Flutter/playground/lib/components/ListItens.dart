@@ -27,33 +27,40 @@ class ListItens extends StatelessWidget {
 
         return Container(
           margin: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-          child: Card(
-            elevation: 5,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 30,
-                  child: Image.network(item['thumbnail']),
-                ),
-                title: Text(
-                  item['title'],
-                  textAlign: TextAlign.center,
-                ),
-                subtitle: Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0,0),
-                  child: Text(
-                    "R\$ ${item['price'].toString()}",
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(30),
+            child: Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: ListTile(
+                  leading: Container(
+                    height: 100,
+                    width: 100,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network(item['thumbnail'], fit: BoxFit.cover,),
+                    ),
+                  ),
+                  title: Text(
+                    item['title'],
                     textAlign: TextAlign.center,
                   ),
-                ),
-                trailing: IconButton(
-                  icon: Icon(
-                    Icons.add,
-                    size: 35,
-                    color: Theme.of(context).colorScheme.primary,
+                  subtitle: Container(
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: Text(
+                      "R\$ ${item['price'].toString()}",
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  onPressed: () => handleClickOnAddItemInCart(item),
+                  trailing: IconButton(
+                    icon: Icon(
+                      Icons.add,
+                      size: 35,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    onPressed: () => handleClickOnAddItemInCart(item),
+                  ),
                 ),
               ),
             ),

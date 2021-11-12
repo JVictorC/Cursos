@@ -152,19 +152,25 @@ class _MyHomePageState extends State<MyHomePage> {
           : Container(
               height: _avaibleHeigth,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     height: _avaibleHeigth * 0.15,
                     padding: EdgeInsets.symmetric(vertical: 20),
                     width: double.infinity,
-                    child: Text(
-                      _nameItemForSearch == ''
-                          ? ''
-                          : 'O Item de Procura é: $_nameItemForSearch',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: Theme.of(context).colorScheme.primary),
+                    child: FittedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          _nameItemForSearch == ''
+                              ? ''
+                              : 'O Item de Procura é: $_nameItemForSearch',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
                     ),
                   ),
                   _isLoading
