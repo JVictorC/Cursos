@@ -17,11 +17,13 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => _selectedCategory(context),
+      borderRadius: BorderRadius.circular(15),
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(
-                width: 2, color: Theme.of(context).colorScheme.primary),
-            borderRadius: BorderRadius.circular(15)),
+          border: Border.all(
+              width: 2, color: Theme.of(context).colorScheme.primary),
+          borderRadius: BorderRadius.circular(15),
+        ),
         child: Center(
           child: SizedBox(
             width: 100,

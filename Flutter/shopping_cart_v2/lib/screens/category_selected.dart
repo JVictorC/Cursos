@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_cart_v2/components/footer.dart';
+import 'package:shopping_cart_v2/components/future_itens_by_categories.dart';
 
 class CategorySelected extends StatelessWidget {
   const CategorySelected({Key? key}) : super(key: key);
@@ -9,17 +11,16 @@ class CategorySelected extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: Text(
-            category['name'],
-            style: const TextStyle(
-              fontSize: 25
+          child: FittedBox(
+            child: Text(
+              category['name'],
+              style: const TextStyle(fontSize: 25),
             ),
           ),
         ),
       ),
-      body: Center(
-        child: Text(category['name']),
-      ),
+      body: FutureItens(category: category,),
+      bottomNavigationBar: const Footer(),
     );
   }
 }
