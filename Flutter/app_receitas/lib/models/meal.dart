@@ -1,4 +1,6 @@
 
+// ignore_for_file: constant_identifier_names
+
 enum Complexity {
   Simple,
   Medium,
@@ -44,7 +46,7 @@ class Meal {
   });
 
   String get complexityText {
-    switch (this.complexity) {
+    switch (complexity) {
       case Complexity.Simple:
           return 'Simples';
       case Complexity.Medium:
@@ -57,7 +59,7 @@ class Meal {
   }
 
   String get costText {
-    switch (this.cost) {
+    switch (cost) {
       case Cost.Cheap:
           return 'Barato';
       case Cost.Fair:

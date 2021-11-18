@@ -19,11 +19,11 @@ class _TabsScreenState extends State<TabsScreen> {
   ];
 
   final List<Widget> _screens = [
-    CategoriesScrenn(),
-    FavoriteScreen(),
+    const CategoriesScrenn(),
+    const FavoriteScreen(),
   ];
 
-  _selectScreen(int index) {
+  void _selectScreen(int index) {
     setState(() {
       _selectedScreenIndex = index;
     });
@@ -35,7 +35,7 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Center(child: Text(_titles[_selectedScreenIndex])),
       ),
-      drawer: Drawer(
+      drawer: const Drawer(
         child: MainDrawer(),
       ),
       body: _screens[_selectedScreenIndex],
@@ -46,7 +46,7 @@ class _TabsScreenState extends State<TabsScreen> {
         selectedItemColor: Theme.of(context).colorScheme.secondary,
         currentIndex: _selectedScreenIndex,
         // type: BottomNavigationBarType.shifting,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.category),
             label: 'Categorias',

@@ -12,7 +12,7 @@ class MainDrawer extends StatelessWidget {
       ),
       title: Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
             fontFamily: 'RobotoCondensed',
             fontSize: 24,
             fontWeight: FontWeight.bold),
@@ -29,7 +29,7 @@ class MainDrawer extends StatelessWidget {
           Container(
             height: 120,
             width: double.infinity,
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             color: Theme.of(context).colorScheme.secondary,
             alignment: Alignment.bottomRight,
             child: Text(
@@ -40,7 +40,7 @@ class MainDrawer extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           _createItem(Icons.restaurant, 'Refeições',

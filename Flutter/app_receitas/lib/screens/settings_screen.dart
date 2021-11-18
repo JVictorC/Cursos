@@ -8,12 +8,12 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Configurações'),
+        title: const Text('Configurações'),
       ),
-      drawer: Drawer(
+      drawer: const Drawer(
         child: MainDrawer(),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Configurações'),
       ),
     );
