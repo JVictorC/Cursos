@@ -1,0 +1,5 @@
+{
+  "files.exclude": {
+    "lib/store/counter.store.g.dart": true
+  }
+}

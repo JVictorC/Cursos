@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'buttos_favorite_add_cart.dart';
 
 class CardItem extends StatelessWidget {
-  const CardItem({Key? key, required this.item}) : super(key: key);
+  const CardItem({Key? key, required this.item }) : super(key: key);
 
   final Map item;
 
@@ -38,7 +38,7 @@ class CardItem extends StatelessWidget {
             ),
           ),
           Text('R\$ ${item['price']}'),
-          const ButtonsAddAndFavorite()
+          ButtonsAddAndFavorite(dateItem: item)
         ],
       ),
     );
