@@ -5,7 +5,6 @@ import 'package:shop_udemy/models/products_list.dart';
 
 class ProductFormPage extends StatefulWidget {
   const ProductFormPage({Key? key}) : super(key: key);
-
   @override
   _ProductFormPageState createState() => _ProductFormPageState();
 }
@@ -13,7 +12,7 @@ class ProductFormPage extends StatefulWidget {
 class _ProductFormPageState extends State<ProductFormPage> {
   final _priceFocus = FocusNode();
   final _descriptionFocus = FocusNode();
-  final _imageURLFocus = FocusNode();
+  final _imageUrlFocus = FocusNode();
   final _imageURLController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final Map<String, Object> _formDate = {};
@@ -21,15 +20,15 @@ class _ProductFormPageState extends State<ProductFormPage> {
   @override
   void initState() {
     super.initState();
-    _imageURLFocus.addListener(updateImage);
+    _imageUrlFocus.addListener(updateImage);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if(_formDate.isEmpty) {
+    if (_formDate.isEmpty) {
       final arg = ModalRoute.of(context)?.settings.arguments;
-      if(arg != null) {
+      if (arg != null) {
         final product = arg as Product;
         _formDate['id'] = product.id;
         _formDate['name'] = product.name;
@@ -47,8 +46,9 @@ class _ProductFormPageState extends State<ProductFormPage> {
     super.dispose();
     _priceFocus.dispose();
     _descriptionFocus.dispose();
-    _imageURLFocus.dispose();
-    _imageURLFocus.removeListener(updateImage);
+
+    _imageUrlFocus.removeListener(updateImage);
+    _imageUrlFocus.dispose();
   }
 
   void updateImage() {
@@ -71,8 +71,9 @@ class _ProductFormPageState extends State<ProductFormPage> {
       Provider.of<ProductList>(
         context,
         listen: false,
-      ).saveProduct(_formDate);
-      Navigator.of(context).pop();
+      ).saveProduct(_formDate).then((_) {
+        Navigator.of(context).pop();
+      });
     }
   }
 
@@ -141,7 +142,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
                 onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(_imageURLFocus);
+                  FocusScope.of(context).requestFocus(_imageUrlFocus);
                 },
                 onSaved: (description) =>
                     _formDate['description'] = description ?? '',
@@ -164,7 +165,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                       decoration:
                           const InputDecoration(labelText: 'Url da Image'),
                       textInputAction: TextInputAction.done,
-                      focusNode: _imageURLFocus,
+                      focusNode: _imageUrlFocus,
                       keyboardType: TextInputType.url,
                       controller: _imageURLController,
                       onFieldSubmitted: (_) => _submitForm(),
@@ -190,11 +191,9 @@ class _ProductFormPageState extends State<ProductFormPage> {
                     ),
                     child: _imageURLController.text.isEmpty
                         ? const Text('Informe a URL')
-                        : FittedBox(
-                            child: Image.network(
-                              _imageURLController.text,
-                              fit: BoxFit.cover,
-                            ),
+                        : Image.network(
+                            _imageURLController.text,
+                            fit: BoxFit.cover,
                           ),
                     alignment: Alignment.center,
                   ),
