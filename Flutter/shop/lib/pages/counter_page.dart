@@ -17,7 +17,7 @@ class _CounterPageState extends State<CounterPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Exemplo Contador'),
+        title: const Text('Exemplo Contador'),
       ),
       body: Column(
         children: [
@@ -27,7 +27,6 @@ class _CounterPageState extends State<CounterPage> {
               setState(() {
                 providerState?.increment();
               });
-              print(providerState?.value);
             },
             icon: const Icon(Icons.add),
           ),
@@ -36,7 +35,6 @@ class _CounterPageState extends State<CounterPage> {
               setState(() {
                 providerState?.decremento();
               });
-              print(providerState?.value);
             },
             icon: const Icon(Icons.remove),
           ),

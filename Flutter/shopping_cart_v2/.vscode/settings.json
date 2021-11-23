@@ -1,6 +1,0 @@
-{
-  "files.exclude": {
-    "lib/store/cart.store.g.dart": true,
-    "lib/store/favorites.store.g.dart": true
-  }
-}
