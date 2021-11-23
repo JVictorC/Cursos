@@ -6,7 +6,9 @@ import 'package:shop_udemy/models/products_list.dart';
 import 'package:shop_udemy/pages/cart_page.dart';
 import 'package:shop_udemy/pages/orders_page.dart';
 import 'package:shop_udemy/pages/product_detail_page.dart';
+import 'package:shop_udemy/pages/product_form_page.dart';
 import 'package:shop_udemy/pages/products_overview_page.dart';
+import 'package:shop_udemy/pages/produts_page.dart';
 import 'package:shop_udemy/utils/app_routes.dart';
 
 void main() {
@@ -50,6 +52,8 @@ class MyApp extends StatelessWidget {
           AppRoutes.PRODUCT_DETAIL: (_) => const ProductDetailPage(),
           AppRoutes.CART: (_) => const CartPage(),
           AppRoutes.ORDERS: (_) => const OrdersPage(),
+          AppRoutes.PRODUCTS: (_) => const ProductsPage(),
+          AppRoutes.PRODUCT_FORM: (_) => const ProductFormPage(),
         },
       ),
     );

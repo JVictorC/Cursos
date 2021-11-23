@@ -6,7 +6,6 @@ import 'package:shop_udemy/components/app_drawer.dart';
 import 'package:shop_udemy/components/badge.dart';
 import 'package:shop_udemy/components/product_grid.dart';
 import 'package:shop_udemy/models/cart.dart';
-import 'package:shop_udemy/models/products_list.dart';
 import 'package:shop_udemy/utils/app_routes.dart';
 
 enum FilterOptions {
