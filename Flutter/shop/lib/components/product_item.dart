@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_udemy/exeptions/http_exeption.dart';
 import 'package:shop_udemy/models/products.dart';
 import 'package:shop_udemy/models/products_list.dart';
 import 'package:shop_udemy/utils/app_routes.dart';
@@ -15,6 +16,10 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProductList>(context, listen: false);
+
+    final msg = ScaffoldMessenger.of(context); 
+
+
     return ListTile(
       leading: CircleAvatar(
         backgroundImage: NetworkImage(product.imageUrl),
@@ -45,12 +50,17 @@ class ProductItem extends StatelessWidget {
                       content: const Text('Tem certeza ?'),
                       actions: [
                         TextButton(
-                          onPressed: () {
+                          onPressed: () async {
                             Navigator.of(ctx).pop();
-                            provider.removeProduct(product);
+                            try {
+                              await provider.removeProduct(product);
+                            } on HttpException catch (e) {
+                              msg.showSnackBar(
+                                SnackBar(content: Text(e.toString()))
+                              );
+                            }
                           },
                           child: const Text('Sim'),
-                          
                         ),
                         TextButton(
                           onPressed: () {

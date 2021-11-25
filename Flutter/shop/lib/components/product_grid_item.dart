@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_udemy/exeptions/http_exeption.dart';
 import 'package:shop_udemy/models/cart.dart';
 import 'package:shop_udemy/models/products.dart';
 import 'package:shop_udemy/utils/app_routes.dart';
@@ -35,7 +36,14 @@ class ProductGridItem extends StatelessWidget {
           backgroundColor: Colors.black87,
           leading: Consumer<Product>(
             builder: (ctx, product, _) => IconButton(
-              onPressed: () => product.toggleFavorite(),
+              onPressed: () async {
+                try {
+                  await product.toggleFavorite(product.isFavorite);
+                } on HttpException catch (e) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text(e.toString())));
+                }
+              },
               icon: Icon(
                   product.isFavorite ? Icons.favorite : Icons.favorite_border),
               color: Theme.of(context).colorScheme.secondary,
@@ -49,7 +57,7 @@ class ProductGridItem extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: const Text('Produto adicionado com sucesso'),
-                  duration:const Duration(seconds: 2),
+                  duration: const Duration(seconds: 2),
                   action: SnackBarAction(
                     label: 'DESFAZER',
                     onPressed: () {

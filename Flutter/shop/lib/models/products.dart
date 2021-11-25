@@ -1,6 +1,11 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
 
-class Product with ChangeNotifier{
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'package:shop_udemy/exeptions/http_exeption.dart';
+import 'package:shop_udemy/utils/constantes.dart';
+
+class Product with ChangeNotifier {
   final String id;
   final String name;
   final String description;
@@ -17,8 +22,26 @@ class Product with ChangeNotifier{
     this.isFavorite = false,
   });
 
-  void toggleFavorite() {
+  void _toggleFavorite() {
     isFavorite = !isFavorite;
     notifyListeners();
+  }
+
+  Future<void> toggleFavorite(bool statusFavorite) async {
+    _toggleFavorite();
+    final response = await http.patch(
+      Uri.parse('${Constants.PRODUCT_BASE_URL}/$id.json'),
+      body: jsonEncode({"isFavorite": !statusFavorite}),
+    );
+
+    if (response.statusCode >= 400) {
+      _toggleFavorite();
+      notifyListeners();
+
+      throw HttpException(
+        msg: 'Erro no momento de fazer a requisição ao servidor',
+        statusCode: response.statusCode,
+      );
+    }
   }
 }

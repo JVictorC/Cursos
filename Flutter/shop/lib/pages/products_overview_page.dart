@@ -6,6 +6,7 @@ import 'package:shop_udemy/components/app_drawer.dart';
 import 'package:shop_udemy/components/badge.dart';
 import 'package:shop_udemy/components/product_grid.dart';
 import 'package:shop_udemy/models/cart.dart';
+import 'package:shop_udemy/models/products_list.dart';
 import 'package:shop_udemy/utils/app_routes.dart';
 
 enum FilterOptions {
@@ -24,11 +25,24 @@ class ProductsOverViewPage extends StatefulWidget {
 
 class _ProductsOverViewPageState extends State<ProductsOverViewPage> {
   bool _showFavoritesOnly = false;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ProductList>(context, listen: false).loadProducts().then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
+  Future<void> _onRefreshPage(BuildContext context) async {
+    Provider.of<ProductList>(context, listen: false).loadProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // final provider = Provider.of<ProductList>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Minha loja'),
@@ -60,16 +74,22 @@ class _ProductsOverViewPageState extends State<ProductsOverViewPage> {
             builder: (ctx, cart, child) => Badge(
               value: cart.itemsCount.toString(),
               child: IconButton(
-                onPressed: () => Navigator.of(context).pushNamed(AppRoutes.CART),
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(AppRoutes.CART),
                 icon: child!,
               ),
             ),
           )
         ],
       ),
-      body: ProductGrid(
-        showFavoritesOnly: _showFavoritesOnly,
-      ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : RefreshIndicator(
+            onRefresh: () => _onRefreshPage(context),
+            child: ProductGrid(
+                showFavoritesOnly: _showFavoritesOnly,
+              ),
+          ),
       drawer: const AppDrawer(),
     );
   }
