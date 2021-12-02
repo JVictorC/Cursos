@@ -9,36 +9,50 @@ import 'package:shop_udemy/models/products.dart';
 import 'package:shop_udemy/utils/constantes.dart';
 
 class ProductList with ChangeNotifier {
+  final String _token;
+  final String _userId;
+  final List<Product> _itens;
 
-  final List<Product> _itens = [];
+  ProductList([this._token = '', this._itens = const [], this._userId = '']);
 
   List<Product> get itens => [..._itens];
 
   Future<void> loadProducts() async {
     _itens.clear();
 
-    final response = await http.get(Uri.parse('${Constants.PRODUCT_BASE_URL}.json'));
+    final response = await http
+        .get(Uri.parse('${Constants.PRODUCT_BASE_URL}.json?auth=$_token'));
 
     if (response.body == 'null') return;
+
+    final responseFavorites = await http.get(
+      Uri.parse('${Constants.USER_FAVORITES_URL}/$_userId.json?auth=$_token'),
+    );
+
+    Map<String, dynamic> favData = responseFavorites.body == 'null'
+        ? {}
+        : jsonDecode(responseFavorites.body);
 
     final Map<String, dynamic> data = jsonDecode(response.body);
 
     data.forEach((productId, productData) {
       _itens.add(
         Product(
-            id: productId,
-            name: productData['name'],
-            description: productData['description'],
-            price: productData['price'],
-            imageUrl: productData['imageUrl'],
-            isFavorite: productData['isFavorite']),
+          id: productId,
+          name: productData['name'],
+          description: productData['description'],
+          price: productData['price'],
+          imageUrl: productData['imageUrl'],
+          isFavorite: favData[productId] ?? false,
+        ),
       );
     });
     notifyListeners();
   }
 
-  List<Product> get favoriteItens =>
-      _itens.where((element) => element.isFavorite).toList();
+  List<Product> get favoriteItens {
+    return _itens.where((element) => element.isFavorite).toList();
+  }
 
   int get itemsCount => _itens.length;
 
@@ -62,14 +76,13 @@ class ProductList with ChangeNotifier {
 
   Future<void> addProduct(Product data) async {
     final request = await http.post(
-      Uri.parse('${Constants.PRODUCT_BASE_URL}.json'),
+      Uri.parse('${Constants.PRODUCT_BASE_URL}.json?auth=$_token'),
       body: jsonEncode(
         {
           "name": data.name,
           "description": data.description,
           "price": data.price,
           "imageUrl": data.imageUrl,
-          "isFavorite": data.isFavorite,
         },
       ),
     );
@@ -91,7 +104,8 @@ class ProductList with ChangeNotifier {
     int index = _itens.indexWhere((element) => element.id == product.id);
     if (index >= 0) {
       await http.patch(
-        Uri.parse('${Constants.PRODUCT_BASE_URL}/${product.id}.json'),
+        Uri.parse(
+            '${Constants.PRODUCT_BASE_URL}/${product.id}.json?auth=$_token'),
         body: jsonEncode(
           {
             "name": product.name,
@@ -113,7 +127,8 @@ class ProductList with ChangeNotifier {
       _itens.remove(productForVerification);
 
       final response = await http.delete(
-        Uri.parse('${Constants.PRODUCT_BASE_URL}/${product.id}.json'),
+        Uri.parse(
+            '${Constants.PRODUCT_BASE_URL}/${product.id}.json?auth=$_token'),
       );
 
       if (response.statusCode >= 400) {

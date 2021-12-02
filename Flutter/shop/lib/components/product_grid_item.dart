@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_udemy/exeptions/http_exeption.dart';
+import 'package:shop_udemy/models/auth.dart';
 import 'package:shop_udemy/models/cart.dart';
 import 'package:shop_udemy/models/products.dart';
 import 'package:shop_udemy/utils/app_routes.dart';
@@ -21,7 +22,7 @@ class ProductGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
     final cart = Provider.of<Cart>(context, listen: false);
-
+    final auth = Provider.of<Auth>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -38,10 +39,16 @@ class ProductGridItem extends StatelessWidget {
             builder: (ctx, product, _) => IconButton(
               onPressed: () async {
                 try {
-                  await product.toggleFavorite(product.isFavorite);
+                  await product.toggleFavorite(
+                    auth.token ?? '',
+                    auth.userId ?? '',
+                  );
                 } on HttpException catch (e) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(e.toString())));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(e.toString()),
+                    ),
+                  );
                 }
               },
               icon: Icon(

@@ -8,17 +8,22 @@ import 'package:shop_udemy/models/order.dart';
 import 'package:shop_udemy/utils/constantes.dart';
 
 class OrderList with ChangeNotifier {
-  final List<Order> _items = [];
+  final String _token;
+  final String _idUser;
+  List<Order> _items;
+
+  OrderList([this._token = '', this._items = const [], this._idUser = '']);
 
   List<Order> get items => [..._items];
 
   int get itemsCount => _items.length;
 
   Future<void> loadOrders() async {
-    _items.clear();
+    _items = [];
 
-    final response =
-        await http.get(Uri.parse('${Constants.ORDER_BASE_URL}.json'));
+    final response = await http.get(
+      Uri.parse('${Constants.ORDER_BASE_URL}/$_idUser.json?auth=$_token'),
+    );
 
     if (response.body == 'null') return;
 
@@ -42,13 +47,16 @@ class OrderList with ChangeNotifier {
         ),
       );
     });
+
+    _items = _items.reversed.toList();
+
     notifyListeners();
   }
 
   Future<void> addOrder(Cart cart) async {
     final date = DateTime.now();
     final request = await http.post(
-      Uri.parse('${Constants.ORDER_BASE_URL}.json'),
+      Uri.parse('${Constants.ORDER_BASE_URL}/$_idUser.json?auth=$_token'),
       body: jsonEncode(
         {
           "total": cart.totalAmount,
