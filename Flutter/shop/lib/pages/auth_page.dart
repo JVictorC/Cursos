@@ -39,17 +39,19 @@ class AuthPage extends StatelessWidget {
                     color: Colors.deepOrange.shade900,
                     boxShadow: const [
                       BoxShadow(
-                          blurRadius: 8,
-                          color: Colors.black26,
-                          offset: Offset(0, 2)),
+                        blurRadius: 8,
+                        color: Colors.black26,
+                        offset: Offset(0, 2),
+                      ),
                     ],
                   ),
                   child: Text(
                     'Minha Loja',
                     style: TextStyle(
-                        fontSize: 45,
-                        color: Theme.of(context).textTheme.headline6?.color,
-                        fontFamily: 'Anton'),
+                      fontSize: 45,
+                      color: Theme.of(context).textTheme.headline6?.color,
+                      fontFamily: 'Anton',
+                    ),
                   ),
                 ),
                 const AuthForm()
