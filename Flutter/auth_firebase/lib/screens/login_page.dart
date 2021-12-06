@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:auth_firebase/components/form_login.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 enum MethodAuth { SingIn, SingUp }
 
@@ -29,66 +30,78 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _avaliableScreen = MediaQuery.of(context).size.width;
+    final _avaliableScreenWidth = MediaQuery.of(context).size.width;
+    final _avaliableScreenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(179, 89, 130, 1),
-                  Color.fromRGBO(214, 143, 175, 1)
-                ],
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              height: _avaliableScreenHeight - MediaQuery.of(context).viewInsets.bottom + 100,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromRGBO(61, 90, 128, 1),
+                    Color.fromRGBO(227, 251, 252, 1)
+                  ],
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                ),
               ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 50,
-                    vertical: 50,
+            Positioned(
+              bottom: .5,
+              left: .5,
+              top: .5,
+              right: .5,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 70,
+                      vertical: 30,
+                    ),
+                    transform: Matrix4.rotationZ(-8 * pi / 180)..translate(-10.0),
+                    decoration: BoxDecoration(
+                      color: Colors.green[700],
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: const Icon(
+                      Icons.monetization_on,
+                      size: 80,
+                      color: Colors.white,
+                    ),
                   ),
-                  transform: Matrix4.rotationZ(-8 * pi / 180)..translate(-10.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
+                  SizedBox(
+                    width: _avaliableScreenWidth * .8,
+                    height: _isSignUp ? 350 : 250,
+                    child: FormLogin(
+                      isSignUp: _isSignUp,
+                      isSingIn: _isSingIn,
+                    ),
                   ),
-                  child: Text(
-                    'Pagina Login',
-                    style: Theme.of(context).textTheme.headline6,
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                SizedBox(
-                  width: _avaliableScreen * .8,
-                  height: _isSignUp ? 300 : 250,
-                  child: FormLogin(
-                    isSignUp: _isSignUp,
-                    isSingIn: _isSingIn,
+                  TextButton(
+                    onPressed: () {
+                      _toggleMethod(
+                        _isSingIn ? MethodAuth.SingUp : MethodAuth.SingIn,
+                      );
+                    },
+                    child: Text(
+                      _isSingIn ? 'Fazer Cadastro ?' : 'Fazer Login ?',
+                      style: GoogleFonts.montserrat(
+                          color: Colors.white, fontSize: 20),
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextButton(
-                  onPressed: () {
-                    _toggleMethod(
-                        _isSingIn ? MethodAuth.SingUp : MethodAuth.SingIn);
-                  },
-                  child: Text(
-                    _isSingIn ? 'Fazer Cadastro ?' : 'Fazer Login ?',
-                    style: const TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

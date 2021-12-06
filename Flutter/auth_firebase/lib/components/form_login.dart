@@ -1,6 +1,7 @@
 import 'package:auth_firebase/exceptions/auth_exeptions.dart';
 import 'package:auth_firebase/providers/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class FormLogin extends StatefulWidget {
@@ -20,6 +21,7 @@ class FormLogin extends StatefulWidget {
 class _FormLoginState extends State<FormLogin> {
   final Map<String, String> _formData = {};
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _confirmationFocus = FocusNode();
 
   bool _isLoading = false;
 
@@ -103,6 +105,7 @@ class _FormLoginState extends State<FormLogin> {
             ),
             validator: emailValidation,
             onSaved: (value) => _formData['email'] = value!,
+            textInputAction: TextInputAction.next,
           ),
           TextFormField(
             decoration: InputDecoration(
@@ -117,18 +120,27 @@ class _FormLoginState extends State<FormLogin> {
                 ),
               ),
             ),
+            keyboardType: TextInputType.emailAddress,
             obscureText: _showPassWord,
             validator: passwordValidation,
             onSaved: (password) => _formData['password'] = password!,
             controller: _password,
             onChanged: (_) => setState(() {}),
+            onEditingComplete: widget.isSignUp ? () {} : _submitForm,
+            textInputAction:
+                widget.isSignUp ? TextInputAction.next : TextInputAction.done,
+            onFieldSubmitted: widget.isSignUp
+                ? (_) {
+                    FocusScope.of(context).requestFocus(_confirmationFocus);
+                  }
+                : (_) {},
           ),
           if (widget.isSignUp)
             TextFormField(
               decoration: InputDecoration(
                 icon: const Icon(Icons.password),
-                label: Text(
-                  widget.isSignUp ? 'Confirmar Senha' : 'Senha',
+                label: const Text(
+                  'Confirmar Senha',
                 ),
                 suffixIcon: IconButton(
                   enableFeedback: true,
@@ -140,6 +152,7 @@ class _FormLoginState extends State<FormLogin> {
                   ),
                 ),
               ),
+              focusNode: _confirmationFocus,
               obscureText: _showPassWord,
               validator: (_passwordConfirmation) {
                 final confimationPassword = _passwordConfirmation ?? '';
@@ -147,6 +160,7 @@ class _FormLoginState extends State<FormLogin> {
                   return 'As senha não conferem';
                 }
               },
+              onEditingComplete: _submitForm,
             ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -158,13 +172,18 @@ class _FormLoginState extends State<FormLogin> {
             onPressed: _submitForm,
             child: _isLoading
                 ? const SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  )
+                : Text(
+                    widget.isSingIn ? 'Fazer Login' : 'Fazer Cadastro',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 15
+                    ),
                   ),
-                )
-                : Text(widget.isSingIn ? 'Fazer Login' : 'Fazer Cadastro'),
           ),
         ],
       ),
