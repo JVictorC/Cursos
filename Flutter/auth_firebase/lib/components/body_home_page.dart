@@ -1,9 +1,8 @@
-import 'package:auth_firebase/components/pop_menu_body_home.dart';
 import 'package:auth_firebase/components/transaction.dart';
-import 'package:auth_firebase/data/dummy_data.dart';
+import 'package:auth_firebase/providers/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class BodyHomePage extends StatelessWidget {
   const BodyHomePage({Key? key}) : super(key: key);
@@ -11,6 +10,8 @@ class BodyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final providerTransActions = Provider.of<TransActionsProvider>(context);
+    final itensTransActionss = providerTransActions.getItems;
     return Expanded(
       child: Column(
         children: [
@@ -21,9 +22,9 @@ class BodyHomePage extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: dummy_data.length,
+              itemCount: itensTransActionss.length,
               itemBuilder: (ctx, index) {
-                final transAction = dummy_data[index];
+                final transAction = itensTransActionss[index];
                 return TransActionWidget(transAction: transAction);
               },
             ),

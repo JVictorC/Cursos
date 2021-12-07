@@ -1,3 +1,4 @@
+
 import 'package:auth_firebase/models/coin.dart';
 import 'package:auth_firebase/services/coins.dart';
 import 'package:flutter/foundation.dart';
@@ -11,7 +12,6 @@ class Coins with ChangeNotifier {
     final result = await getCoins();
     _coins.clear();
     _coins.addAll(result);
-    notifyListeners();
   }
 
   Map<String, Object> mapCoins() {

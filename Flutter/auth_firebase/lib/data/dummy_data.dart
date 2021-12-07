@@ -11,7 +11,6 @@ final dummy_data = [
     ask: 5.65,
     total: 200,
     code: 'USD',
-    codeToParse: 'BR',
   ),
   TransAction(
     id: '78979',
@@ -21,7 +20,6 @@ final dummy_data = [
     ask: 5.65,
     total: 100,
     code: 'USD',
-    codeToParse: 'BR',
   ),
   TransAction(
     id: '66999777',
@@ -31,6 +29,5 @@ final dummy_data = [
     ask: 5.65,
     total: 200,
     code: 'USD',
-    codeToParse: 'BR',
   ),
 ];

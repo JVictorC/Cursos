@@ -2,6 +2,7 @@ import 'package:auth_firebase/components/app_bar_widget.dart';
 import 'package:auth_firebase/components/app_drawer.dart';
 import 'package:auth_firebase/components/body_home_page.dart';
 import 'package:auth_firebase/components/coins_prices.dart';
+import 'package:auth_firebase/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,7 +16,9 @@ class MainPage extends StatelessWidget {
         title: Text('Home Page', style: GoogleFonts.montserrat(),),
         widgets: [
           ElevatedButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(AppRoutes.ADD_NEW_TRANSACTION);
+            },
             icon: const Icon(Icons.add),
             label: Text('Add Nova Trans...', style: GoogleFonts.montserrat(),),
             

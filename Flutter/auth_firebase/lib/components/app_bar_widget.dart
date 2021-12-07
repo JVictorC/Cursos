@@ -6,7 +6,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   /// you can add more fields that meet your needs
 
-  BaseAppBar({
+  const BaseAppBar({
     Key? key,
     required this.title,
     required this.widgets,

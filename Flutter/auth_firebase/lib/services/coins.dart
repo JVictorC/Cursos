@@ -23,6 +23,5 @@ Future<List<Coin>> getCoins() async {
       ),
     );
   });
-
   return result;
 }

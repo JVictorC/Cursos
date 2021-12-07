@@ -4,9 +4,8 @@ class TransAction {
   final DateTime date;
   final String description;
   final double ask;
-  final double total;
   final String code;
-  final String codeToParse;
+  final double total;
 
 
   TransAction({
@@ -17,7 +16,6 @@ class TransAction {
     required this.ask,
     required this.total,
     required this.code,
-    required this.codeToParse,
   });
 
 }
