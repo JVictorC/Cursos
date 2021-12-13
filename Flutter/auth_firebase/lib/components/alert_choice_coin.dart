@@ -21,7 +21,6 @@ class _AlertChoiceCoinState extends State<AlertChoiceCoin> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _coinSeleted = widget.coinSeleted;
   }
@@ -69,13 +68,13 @@ class _AlertChoiceCoinState extends State<AlertChoiceCoin> {
           onPressed: () {
             Navigator.of(context).pop(_coinSeleted);
           },
-          child: Text('Ok'),
+          child: const Text('Ok'),
         ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop(_coinSeleted);
           },
-          child: Text('Cancelar'),
+          child: const Text('Cancelar'),
         ),
       ],
     );

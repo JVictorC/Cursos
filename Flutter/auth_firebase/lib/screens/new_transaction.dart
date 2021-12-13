@@ -1,9 +1,7 @@
 import 'package:auth_firebase/components/alert_choice_coin.dart';
-import 'package:auth_firebase/providers/coins.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class NewTransAction extends StatefulWidget {
   const NewTransAction({Key? key}) : super(key: key);
@@ -58,6 +56,7 @@ class _NewTransActionState extends State<NewTransAction> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
             child: Form(
+              key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
