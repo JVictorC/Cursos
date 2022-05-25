@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#08AD7F"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edit_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:background="#fff"
+        android:hint="Email"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/edit_senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_email"
+        android:layout_marginTop="8dp"
+        android:background="#fff"
+        android:hint="Senha"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_senha"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#DADADA"
+        android:text="login"
+        android:textAllCaps="true"
+        android:textColor="#08AD7F" />
+
+    <TextView
+        android:id="@+id/text_singin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Ainda Nao e cadastrado ? Cadastre-se!"
+        android:textColor="#FFF" />
+
+    <ImageView
+        android:id="@+id/image_forget_password"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_suport" />
+
+    <TextView
+        android:id="@+id/text_forget_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/image_forget_password"
+        android:height="40dp"
+        android:gravity="center"
+        android:text="Esqueceu a Senha?" />
+
+
+</RelativeLayout>
